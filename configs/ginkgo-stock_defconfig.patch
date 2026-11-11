@@ -1,0 +1,26 @@
+# Patch untuk arch/arm64/configs/ginkgo-stock_defconfig
+# 
+# Kernel ginkgo punya bug: /proc/config.gz diambil dari ginkgo-stock_defconfig
+# bukan dari .config yang dipakai build (lihat kernel/Makefile ifdef CONFIG_MACH_XIAOMI_C3J)
+#
+# Jalankan patch ini sebelum build:
+#   cd ~/ginkgo-kernel/kernel
+#   patch -p1 < /path/to/ginkgo-stock_defconfig.patch
+#
+# Atau manual dengan sed:
+#   sed -i 's/# CONFIG_USER_NS is not set/CONFIG_USER_NS=y/' arch/arm64/configs/ginkgo-stock_defconfig
+#   sed -i 's/# CONFIG_PID_NS is not set/CONFIG_PID_NS=y/' arch/arm64/configs/ginkgo-stock_defconfig
+#   sed -i 's/# CONFIG_IPC_NS is not set/CONFIG_IPC_NS=y/' arch/arm64/configs/ginkgo-stock_defconfig
+#   sed -i 's/# CONFIG_UTS_NS is not set/CONFIG_UTS_NS=y/' arch/arm64/configs/ginkgo-stock_defconfig
+
+--- a/arch/arm64/configs/ginkgo-stock_defconfig
++++ b/arch/arm64/configs/ginkgo-stock_defconfig
+@@ -1,4 +1,4 @@
+-# CONFIG_USER_NS is not set
++CONFIG_USER_NS=y
+-# CONFIG_PID_NS is not set
++CONFIG_PID_NS=y
+-# CONFIG_IPC_NS is not set
++CONFIG_IPC_NS=y
+-# CONFIG_UTS_NS is not set
++CONFIG_UTS_NS=y
